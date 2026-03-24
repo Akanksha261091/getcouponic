@@ -1,0 +1,690 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>GetCouponic – Best Coupons, Promo Codes & Deals</title>
+<meta name="description" content="Find the best coupons, promo codes and deals from 500+ top stores. Save big with GetCouponic — updated daily!">
+<link href="https://fonts.googleapis.com/css2?family=Syne:wght@400;600;700;800&family=Instrument+Sans:ital,wght@0,400;0,500;1,400&family=JetBrains+Mono:wght@400;600&display=swap" rel="stylesheet">
+<style>
+:root {
+  --bg: #faf8f4;
+  --surface: #ffffff;
+  --dark: #0f0e0c;
+  --accent: #e8440a;
+  --accent2: #1a9e5e;
+  --accent3: #e8a30a;
+  --border: #e5e0d8;
+  --muted: #8a8278;
+  --text: #1a1714;
+  --pill-bg: #f0ece4;
+}
+
+*, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+html { scroll-behavior: smooth; }
+body { font-family: 'Instrument Sans', sans-serif; background: var(--bg); color: var(--text); overflow-x: hidden; }
+
+/* HEADER */
+header {
+  position: sticky; top: 0; z-index: 100;
+  background: var(--dark);
+  display: flex; align-items: center; justify-content: space-between;
+  padding: 0 40px; height: 60px;
+  border-bottom: 1px solid #222;
+}
+.logo { font-family: 'Syne', sans-serif; font-size: 1.4rem; font-weight: 800; color: #fff; text-decoration: none; letter-spacing: -0.02em; }
+.logo span { color: var(--accent); }
+nav { display: flex; gap: 28px; align-items: center; }
+nav a { font-family: 'JetBrains Mono', monospace; font-size: 0.68rem; letter-spacing: 0.08em; text-transform: uppercase; color: #888; text-decoration: none; transition: color 0.2s; }
+nav a:hover { color: #fff; }
+.nav-cta { background: var(--accent); color: #fff !important; padding: 7px 18px; font-size: 0.65rem !important; transition: opacity 0.2s !important; }
+.nav-cta:hover { opacity: 0.85; }
+
+.search-bar {
+  display: flex; align-items: center;
+  background: #1e1c18; border: 1px solid #333;
+  padding: 0 14px; gap: 8px; height: 36px; width: 260px;
+}
+.search-bar input { background: none; border: none; outline: none; color: #ccc; font-family: 'Instrument Sans', sans-serif; font-size: 0.82rem; width: 100%; }
+.search-bar input::placeholder { color: #555; }
+.search-bar svg { color: #555; flex-shrink: 0; }
+
+/* HERO */
+.hero {
+  background: var(--dark);
+  padding: 64px 40px 72px;
+  position: relative; overflow: hidden;
+}
+.hero::after {
+  content: '';
+  position: absolute; inset: 0;
+  background: radial-gradient(ellipse 60% 80% at 80% 50%, rgba(232,68,10,0.08) 0%, transparent 60%),
+              radial-gradient(ellipse 40% 60% at 20% 80%, rgba(26,158,94,0.06) 0%, transparent 50%);
+  pointer-events: none;
+}
+.hero-inner { max-width: 700px; position: relative; z-index: 1; }
+.hero-tag { font-family: 'JetBrains Mono', monospace; font-size: 0.65rem; letter-spacing: 0.15em; text-transform: uppercase; color: var(--accent); background: rgba(232,68,10,0.12); border: 1px solid rgba(232,68,10,0.25); padding: 4px 12px; display: inline-block; margin-bottom: 20px; }
+.hero h1 { font-family: 'Syne', sans-serif; font-size: clamp(2.4rem, 5vw, 4rem); font-weight: 800; color: #fff; line-height: 1.05; letter-spacing: -0.03em; margin-bottom: 16px; }
+.hero h1 em { color: var(--accent); font-style: normal; }
+.hero p { font-size: 1rem; color: #888; line-height: 1.65; margin-bottom: 32px; max-width: 520px; }
+.hero-search { display: flex; max-width: 520px; }
+.hero-search input { flex: 1; background: #1a1916; border: 1px solid #333; border-right: none; color: #fff; font-family: 'Instrument Sans', sans-serif; font-size: 0.9rem; padding: 13px 18px; outline: none; transition: border-color 0.2s; }
+.hero-search input:focus { border-color: var(--accent); }
+.hero-search input::placeholder { color: #555; }
+.hero-search button { background: var(--accent); color: #fff; border: none; font-family: 'JetBrains Mono', monospace; font-size: 0.7rem; font-weight: 600; letter-spacing: 0.1em; text-transform: uppercase; padding: 13px 24px; cursor: pointer; transition: opacity 0.2s; }
+.hero-search button:hover { opacity: 0.85; }
+.hero-stats { display: flex; gap: 40px; margin-top: 40px; }
+.hero-stat strong { font-family: 'Syne', sans-serif; font-size: 1.8rem; font-weight: 800; color: #fff; display: block; line-height: 1; }
+.hero-stat span { font-size: 0.72rem; color: #666; letter-spacing: 0.05em; }
+
+/* TICKER */
+.ticker { background: var(--accent); padding: 10px 0; overflow: hidden; }
+.ticker-inner { display: flex; animation: tick 30s linear infinite; white-space: nowrap; }
+.ticker-item { font-family: 'JetBrains Mono', monospace; font-size: 0.68rem; letter-spacing: 0.1em; text-transform: uppercase; color: #fff; padding: 0 32px; opacity: 0.9; }
+.ticker-sep { color: rgba(255,255,255,0.4); }
+@keyframes tick { from { transform: translateX(0); } to { transform: translateX(-50%); } }
+
+/* CATEGORIES */
+.cats-section { padding: 32px 40px; border-bottom: 1px solid var(--border); background: var(--surface); }
+.cats-row { display: flex; gap: 8px; flex-wrap: wrap; }
+.cat-btn { font-family: 'JetBrains Mono', monospace; font-size: 0.63rem; letter-spacing: 0.08em; text-transform: uppercase; padding: 7px 16px; background: var(--pill-bg); border: 1px solid var(--border); color: var(--muted); cursor: pointer; transition: all 0.15s; white-space: nowrap; }
+.cat-btn:hover, .cat-btn.active { background: var(--dark); color: #fff; border-color: var(--dark); }
+
+/* MAIN LAYOUT */
+.main-wrap { display: grid; grid-template-columns: 240px 1fr; gap: 0; max-width: 1280px; margin: 0 auto; }
+
+/* SIDEBAR */
+.sidebar { border-right: 1px solid var(--border); padding: 32px 24px; position: sticky; top: 61px; height: calc(100vh - 61px); overflow-y: auto; }
+.sidebar::-webkit-scrollbar { width: 4px; }
+.sidebar::-webkit-scrollbar-thumb { background: var(--border); }
+.sidebar-title { font-family: 'Syne', sans-serif; font-size: 0.7rem; font-weight: 700; letter-spacing: 0.12em; text-transform: uppercase; color: var(--muted); margin-bottom: 16px; padding-bottom: 8px; border-bottom: 1px solid var(--border); }
+.store-list { list-style: none; margin-bottom: 32px; }
+.store-list li a { display: flex; align-items: center; gap: 10px; padding: 8px 0; font-size: 0.82rem; color: var(--text); text-decoration: none; border-bottom: 1px solid transparent; transition: all 0.15s; }
+.store-list li a:hover { color: var(--accent); }
+.store-dot { width: 28px; height: 28px; border-radius: 6px; background: var(--pill-bg); border: 1px solid var(--border); display: flex; align-items: center; justify-content: center; font-family: 'Syne', sans-serif; font-size: 0.6rem; font-weight: 700; color: var(--muted); flex-shrink: 0; }
+
+/* DEALS AREA */
+.deals-area { padding: 32px 36px; }
+.deals-header { display: flex; align-items: center; justify-content: space-between; margin-bottom: 24px; }
+.deals-title { font-family: 'Syne', sans-serif; font-size: 1.3rem; font-weight: 800; letter-spacing: -0.02em; }
+.deals-count { font-family: 'JetBrains Mono', monospace; font-size: 0.65rem; color: var(--muted); }
+
+/* COUPON CARDS */
+.coupons-list { display: flex; flex-direction: column; gap: 12px; }
+
+.coupon-card {
+  background: var(--surface);
+  border: 1px solid var(--border);
+  display: grid;
+  grid-template-columns: auto 1fr auto;
+  gap: 0;
+  overflow: hidden;
+  transition: box-shadow 0.2s, border-color 0.2s;
+  position: relative;
+}
+.coupon-card:hover { box-shadow: 0 4px 24px rgba(0,0,0,0.08); border-color: #d0c8be; }
+
+.coupon-left {
+  padding: 20px 20px 20px 20px;
+  display: flex; flex-direction: column; align-items: center; justify-content: center;
+  background: var(--pill-bg); border-right: 1px dashed var(--border);
+  min-width: 110px; text-align: center; gap: 4px;
+}
+.coupon-discount { font-family: 'Syne', sans-serif; font-size: 1.6rem; font-weight: 800; color: var(--accent); line-height: 1; }
+.coupon-store-name { font-family: 'JetBrains Mono', monospace; font-size: 0.58rem; letter-spacing: 0.1em; text-transform: uppercase; color: var(--muted); margin-top: 4px; }
+
+.coupon-middle { padding: 16px 20px; display: flex; flex-direction: column; justify-content: center; gap: 6px; }
+.coupon-badge { font-family: 'JetBrains Mono', monospace; font-size: 0.55rem; letter-spacing: 0.12em; text-transform: uppercase; padding: 2px 8px; display: inline-block; width: fit-content; }
+.badge-code { background: rgba(26,158,94,0.1); color: var(--accent2); border: 1px solid rgba(26,158,94,0.2); }
+.badge-deal { background: rgba(232,163,10,0.1); color: var(--accent3); border: 1px solid rgba(232,163,10,0.2); }
+.badge-sale { background: rgba(232,68,10,0.08); color: var(--accent); border: 1px solid rgba(232,68,10,0.2); }
+.coupon-title { font-family: 'Syne', sans-serif; font-size: 0.92rem; font-weight: 700; color: var(--text); line-height: 1.3; }
+.coupon-desc { font-size: 0.78rem; color: var(--muted); line-height: 1.5; }
+.coupon-meta { display: flex; gap: 12px; align-items: center; margin-top: 4px; }
+.coupon-used { font-family: 'JetBrains Mono', monospace; font-size: 0.6rem; color: var(--muted); }
+.coupon-expiry { font-family: 'JetBrains Mono', monospace; font-size: 0.6rem; color: var(--accent3); }
+
+.coupon-right { padding: 16px 20px; display: flex; flex-direction: column; align-items: center; justify-content: center; gap: 8px; min-width: 140px; border-left: 1px solid var(--border); }
+.code-box { font-family: 'JetBrains Mono', monospace; font-size: 0.75rem; font-weight: 600; letter-spacing: 0.15em; padding: 8px 14px; border: 1.5px dashed var(--border); color: var(--accent2); background: rgba(26,158,94,0.04); text-align: center; width: 100%; cursor: pointer; transition: all 0.2s; }
+.code-box:hover { border-color: var(--accent2); background: rgba(26,158,94,0.08); }
+.no-code-box { font-family: 'JetBrains Mono', monospace; font-size: 0.62rem; letter-spacing: 0.08em; color: var(--muted); text-align: center; }
+.btn-get { background: var(--dark); color: #fff; border: none; font-family: 'JetBrains Mono', monospace; font-size: 0.62rem; font-weight: 600; letter-spacing: 0.1em; text-transform: uppercase; padding: 9px 16px; cursor: pointer; width: 100%; transition: background 0.2s; }
+.btn-get:hover { background: var(--accent); }
+.btn-deal { background: var(--accent2); }
+.btn-deal:hover { background: #158050 !important; }
+
+/* STORES GRID SECTION */
+.stores-section { padding: 48px 40px; background: var(--surface); border-top: 1px solid var(--border); }
+.section-head { display: flex; align-items: baseline; justify-content: space-between; margin-bottom: 28px; }
+.section-head h2 { font-family: 'Syne', sans-serif; font-size: 1.4rem; font-weight: 800; letter-spacing: -0.02em; }
+.section-head a { font-family: 'JetBrains Mono', monospace; font-size: 0.65rem; letter-spacing: 0.08em; text-transform: uppercase; color: var(--muted); text-decoration: none; border-bottom: 1px solid var(--border); padding-bottom: 1px; transition: color 0.2s; }
+.section-head a:hover { color: var(--accent); }
+.stores-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(150px, 1fr)); gap: 12px; }
+.store-card { background: var(--bg); border: 1px solid var(--border); padding: 20px 16px; display: flex; flex-direction: column; align-items: center; gap: 10px; cursor: pointer; transition: all 0.2s; text-decoration: none; }
+.store-card:hover { border-color: var(--dark); background: var(--surface); transform: translateY(-2px); box-shadow: 0 4px 16px rgba(0,0,0,0.06); }
+.store-icon { width: 48px; height: 48px; border-radius: 10px; background: var(--pill-bg); border: 1px solid var(--border); display: flex; align-items: center; justify-content: center; font-family: 'Syne', sans-serif; font-size: 1rem; font-weight: 800; color: var(--dark); }
+.store-card-name { font-family: 'Syne', sans-serif; font-size: 0.75rem; font-weight: 700; color: var(--text); text-align: center; }
+.store-card-count { font-family: 'JetBrains Mono', monospace; font-size: 0.58rem; color: var(--muted); }
+
+/* NEWSLETTER */
+.newsletter { background: var(--dark); padding: 64px 40px; display: flex; align-items: center; justify-content: space-between; gap: 40px; }
+.newsletter-left { max-width: 480px; }
+.newsletter-tag { font-family: 'JetBrains Mono', monospace; font-size: 0.65rem; letter-spacing: 0.15em; text-transform: uppercase; color: var(--accent); margin-bottom: 12px; }
+.newsletter-left h2 { font-family: 'Syne', sans-serif; font-size: clamp(1.6rem, 3vw, 2.4rem); font-weight: 800; color: #fff; letter-spacing: -0.02em; line-height: 1.1; margin-bottom: 12px; }
+.newsletter-left p { font-size: 0.88rem; color: #666; line-height: 1.65; }
+.newsletter-form { display: flex; gap: 0; min-width: 360px; }
+.newsletter-form input { flex: 1; background: #1a1916; border: 1px solid #333; border-right: none; color: #fff; font-family: 'Instrument Sans', sans-serif; font-size: 0.88rem; padding: 13px 18px; outline: none; }
+.newsletter-form input:focus { border-color: var(--accent); }
+.newsletter-form input::placeholder { color: #555; }
+.newsletter-form button { background: var(--accent); color: #fff; border: none; font-family: 'JetBrains Mono', monospace; font-size: 0.68rem; font-weight: 600; letter-spacing: 0.1em; text-transform: uppercase; padding: 13px 22px; cursor: pointer; transition: opacity 0.2s; white-space: nowrap; }
+.newsletter-form button:hover { opacity: 0.85; }
+
+/* FOOTER */
+footer { background: #0a0907; padding: 40px; display: flex; align-items: center; justify-content: space-between; flex-wrap: wrap; gap: 20px; border-top: 1px solid #1a1916; }
+.footer-logo { font-family: 'Syne', sans-serif; font-size: 1.2rem; font-weight: 800; color: #fff; text-decoration: none; }
+.footer-logo span { color: var(--accent); }
+.footer-links { display: flex; gap: 24px; }
+.footer-links a { font-family: 'JetBrains Mono', monospace; font-size: 0.62rem; letter-spacing: 0.08em; text-transform: uppercase; color: #555; text-decoration: none; transition: color 0.2s; }
+.footer-links a:hover { color: #fff; }
+.footer-copy { font-family: 'JetBrains Mono', monospace; font-size: 0.6rem; color: #444; }
+
+/* TOAST */
+.toast { position: fixed; bottom: 32px; left: 50%; transform: translateX(-50%) translateY(60px); background: var(--dark); color: #fff; font-family: 'JetBrains Mono', monospace; font-size: 0.7rem; letter-spacing: 0.08em; padding: 12px 24px; border-left: 3px solid var(--accent2); opacity: 0; transition: transform 0.3s cubic-bezier(0.34,1.56,0.64,1), opacity 0.3s; pointer-events: none; z-index: 9999; }
+.toast.show { transform: translateX(-50%) translateY(0); opacity: 1; }
+
+/* SCROLL REVEAL */
+.reveal { opacity: 0; transform: translateY(20px); transition: opacity 0.5s, transform 0.5s; }
+.reveal.visible { opacity: 1; transform: translateY(0); }
+
+@media (max-width: 960px) {
+  .main-wrap { grid-template-columns: 1fr; }
+  .sidebar { display: none; }
+  header { padding: 0 20px; }
+  .hero { padding: 40px 20px 48px; }
+  .hero-stats { gap: 24px; }
+  .deals-area { padding: 24px 20px; }
+  .stores-section { padding: 40px 20px; }
+  .newsletter { flex-direction: column; padding: 40px 20px; }
+  .newsletter-form { min-width: auto; width: 100%; }
+  footer { padding: 28px 20px; }
+  .cats-section { padding: 20px; }
+}
+</style>
+</head>
+<body>
+
+<header>
+  <a href="#" class="logo">get<span>couponic</span></a>
+  <div class="search-bar">
+    <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="11" cy="11" r="8"/><path d="m21 21-4.35-4.35"/></svg>
+    <input type="text" placeholder="Search stores or coupons…" oninput="filterCards(this.value)">
+  </div>
+  <nav>
+    <a href="#deals">Deals</a>
+    <a href="#stores">Stores</a>
+    <a href="#newsletter">Alerts</a>
+    <a href="#" class="nav-cta">Submit Deal</a>
+  </nav>
+</header>
+
+<!-- HERO -->
+<section class="hero">
+  <div class="hero-inner">
+    <div class="hero-tag">↓ Updated Daily — 500+ Stores</div>
+    <h1>Save More.<br>Shop <em>Smarter.</em></h1>
+    <p>Verified coupons, promo codes and exclusive deals from top stores — all in one place. Never pay full price again.</p>
+    <div class="hero-search">
+      <input type="text" placeholder="Search store name or brand…" id="heroSearch" oninput="filterCards(this.value)">
+      <button onclick="filterCards(document.getElementById('heroSearch').value)">Search</button>
+    </div>
+    <div class="hero-stats">
+      <div class="hero-stat"><strong>10K+</strong><span>Active Coupons</span></div>
+      <div class="hero-stat"><strong>500+</strong><span>Partner Stores</span></div>
+      <div class="hero-stat"><strong>Daily</strong><span>Updates</span></div>
+    </div>
+  </div>
+</section>
+
+<!-- TICKER -->
+<div class="ticker">
+  <div class="ticker-inner">
+    <span class="ticker-item">Myntra — Up to 80% Off <span class="ticker-sep">✦</span></span>
+    <span class="ticker-item">Hostinger — Extra 15% Off <span class="ticker-sep">✦</span></span>
+    <span class="ticker-item">Temu — Summer Sale 80% Off <span class="ticker-sep">✦</span></span>
+    <span class="ticker-item">FastComet — 80% Off Hosting <span class="ticker-sep">✦</span></span>
+    <span class="ticker-item">Fiverr — Save on Freelance Services <span class="ticker-sep">✦</span></span>
+    <span class="ticker-item">Domestika — 97% Off Courses <span class="ticker-sep">✦</span></span>
+    <span class="ticker-item">Viator — Best Travel Deals <span class="ticker-sep">✦</span></span>
+    <span class="ticker-item">DHgate — Extra 10% Off <span class="ticker-sep">✦</span></span>
+    <span class="ticker-item">Myntra — Up to 80% Off <span class="ticker-sep">✦</span></span>
+    <span class="ticker-item">Hostinger — Extra 15% Off <span class="ticker-sep">✦</span></span>
+    <span class="ticker-item">Temu — Summer Sale 80% Off <span class="ticker-sep">✦</span></span>
+    <span class="ticker-item">FastComet — 80% Off Hosting <span class="ticker-sep">✦</span></span>
+    <span class="ticker-item">Fiverr — Save on Freelance Services <span class="ticker-sep">✦</span></span>
+    <span class="ticker-item">Domestika — 97% Off Courses <span class="ticker-sep">✦</span></span>
+    <span class="ticker-item">Viator — Best Travel Deals <span class="ticker-sep">✦</span></span>
+    <span class="ticker-item">DHgate — Extra 10% Off <span class="ticker-sep">✦</span></span>
+  </div>
+</div>
+
+<!-- CATEGORIES -->
+<div class="cats-section">
+  <div class="cats-row">
+    <button class="cat-btn active" onclick="filterCat(this,'all')">All</button>
+    <button class="cat-btn" onclick="filterCat(this,'hosting')">Hosting</button>
+    <button class="cat-btn" onclick="filterCat(this,'fashion')">Fashion</button>
+    <button class="cat-btn" onclick="filterCat(this,'travel')">Travel</button>
+    <button class="cat-btn" onclick="filterCat(this,'software')">Software</button>
+    <button class="cat-btn" onclick="filterCat(this,'food')">Food & Dining</button>
+    <button class="cat-btn" onclick="filterCat(this,'health')">Health & Beauty</button>
+    <button class="cat-btn" onclick="filterCat(this,'ecommerce')">E-Commerce</button>
+    <button class="cat-btn" onclick="filterCat(this,'education')">Education</button>
+    <button class="cat-btn" onclick="filterCat(this,'electronics')">Electronics</button>
+  </div>
+</div>
+
+<!-- MAIN CONTENT -->
+<div class="main-wrap">
+
+  <!-- SIDEBAR -->
+  <aside class="sidebar">
+    <div class="sidebar-title">Popular Stores</div>
+    <ul class="store-list">
+      <li><a href="#"><div class="store-dot">AJ</div>Ajio</a></li>
+      <li><a href="#"><div class="store-dot">BM</div>BoohooMAN</a></li>
+      <li><a href="#"><div class="store-dot">BK</div>Booking.com</a></li>
+      <li><a href="#"><div class="store-dot">DH</div>DHgate</a></li>
+      <li><a href="#"><div class="store-dot">DM</div>Domestika</a></li>
+      <li><a href="#"><div class="store-dot">FC</div>FastComet</a></li>
+      <li><a href="#"><div class="store-dot">FV</div>Fiverr</a></li>
+      <li><a href="#"><div class="store-dot">GG</div>GetYourGuide</a></li>
+      <li><a href="#"><div class="store-dot">HI</div>Hostinger</a></li>
+      <li><a href="#"><div class="store-dot">IM</div>Inmotion Hosting</a></li>
+      <li><a href="#"><div class="store-dot">LN</div>Lenovo</a></li>
+      <li><a href="#"><div class="store-dot">MY</div>Myntra</a></li>
+      <li><a href="#"><div class="store-dot">NC</div>Natural Cycles</a></li>
+      <li><a href="#"><div class="store-dot">SG</div>SiteGround</a></li>
+      <li><a href="#"><div class="store-dot">TM</div>Temu</a></li>
+      <li><a href="#"><div class="store-dot">VI</div>Viator</a></li>
+      <li><a href="#"><div class="store-dot">ZN</div>Zenni Optical</a></li>
+    </ul>
+
+    <div class="sidebar-title">Categories</div>
+    <ul class="store-list">
+      <li><a href="#">Fashion & Apparel</a></li>
+      <li><a href="#">Travel & Hotels</a></li>
+      <li><a href="#">Web Hosting</a></li>
+      <li><a href="#">Software & Apps</a></li>
+      <li><a href="#">Health & Beauty</a></li>
+      <li><a href="#">Electronics</a></li>
+      <li><a href="#">Food & Beverages</a></li>
+      <li><a href="#">Education</a></li>
+      <li><a href="#">Home & Garden</a></li>
+    </ul>
+  </aside>
+
+  <!-- DEALS -->
+  <div class="deals-area" id="deals">
+    <div class="deals-header">
+      <div class="deals-title">Latest Coupons & Deals</div>
+      <div class="deals-count" id="dealsCount">Showing all coupons</div>
+    </div>
+
+    <div class="coupons-list" id="couponsList">
+
+      <!-- Hostinger -->
+      <div class="coupon-card reveal" data-cat="hosting" data-store="hostinger" data-search="hostinger wordpress hosting gbspecial">
+        <div class="coupon-left"><div class="coupon-discount">15%</div><div style="font-size:0.6rem;color:var(--muted);font-family:'JetBrains Mono',monospace;">EXTRA OFF</div><div class="coupon-store-name">Hostinger</div></div>
+        <div class="coupon-middle">
+          <span class="coupon-badge badge-code">Promo Code</span>
+          <div class="coupon-title">Managed WordPress Hosting — Extra 15% Off + Free Domain</div>
+          <div class="coupon-desc">From ₹139/month on a 48-month plan. Plus get a free domain included with your hosting plan.</div>
+          <div class="coupon-meta"><span class="coupon-used">🔥 538 used</span><span class="coupon-expiry">No Expiry</span></div>
+        </div>
+        <div class="coupon-right">
+          <div class="code-box" onclick="copyCode('GBSPECIAL',this)">GBSPECIAL</div>
+          <button class="btn-get" onclick="copyCode('GBSPECIAL',this)">Copy Code</button>
+        </div>
+      </div>
+
+      <!-- Myntra -->
+      <div class="coupon-card reveal" data-cat="fashion" data-store="myntra" data-search="myntra fashion sale10 discount clothing">
+        <div class="coupon-left"><div class="coupon-discount">80%</div><div style="font-size:0.6rem;color:var(--muted);font-family:'JetBrains Mono',monospace;">UP TO OFF</div><div class="coupon-store-name">Myntra</div></div>
+        <div class="coupon-middle">
+          <span class="coupon-badge badge-code">Promo Code</span>
+          <div class="coupon-title">Extra 10% Discount — 50% to 90% OFF on Select Products</div>
+          <div class="coupon-desc">Enjoy a massive markdown with 50% to 90% OFF on select products, plus get an additional 10% OFF at checkout.</div>
+          <div class="coupon-meta"><span class="coupon-used">🔥 377 used</span><span class="coupon-expiry">No Expiry</span></div>
+        </div>
+        <div class="coupon-right">
+          <div class="code-box" onclick="copyCode('SALE10',this)">SALE10</div>
+          <button class="btn-get" onclick="copyCode('SALE10',this)">Copy Code</button>
+        </div>
+      </div>
+
+      <!-- Myntra Return Policy -->
+      <div class="coupon-card reveal" data-cat="fashion" data-store="myntra" data-search="myntra return refund policy">
+        <div class="coupon-left"><div class="coupon-discount">30</div><div style="font-size:0.6rem;color:var(--muted);font-family:'JetBrains Mono',monospace;">DAY RETURNS</div><div class="coupon-store-name">Myntra</div></div>
+        <div class="coupon-middle">
+          <span class="coupon-badge badge-deal">No Code Needed</span>
+          <div class="coupon-title">30-Day Return/Refund Policy on Myntra</div>
+          <div class="coupon-desc">Shop with confidence — eligible orders can be returned or exchanged within the return window.</div>
+          <div class="coupon-meta"><span class="coupon-used">289 used</span><span class="coupon-expiry">No Expiry</span></div>
+        </div>
+        <div class="coupon-right">
+          <div class="no-code-box">No code needed</div>
+          <button class="btn-get btn-deal" onclick="showToast('Deal activated! Go to Myntra.')">Get Deal</button>
+        </div>
+      </div>
+
+      <!-- FastComet -->
+      <div class="coupon-card reveal" data-cat="hosting" data-store="fastcomet" data-search="fastcomet shared hosting hahot80">
+        <div class="coupon-left"><div class="coupon-discount">80%</div><div style="font-size:0.6rem;color:var(--muted);font-family:'JetBrains Mono',monospace;">OFF HOSTING</div><div class="coupon-store-name">FastComet</div></div>
+        <div class="coupon-middle">
+          <span class="coupon-badge badge-code">Promo Code</span>
+          <div class="coupon-title">80% OFF Shared Hosting Plans!</div>
+          <div class="coupon-desc">Get Up to 80% Off with FastComet promotional codes and coupons — best deal on shared hosting plans.</div>
+          <div class="coupon-meta"><span class="coupon-used">109 used</span><span class="coupon-expiry">No Expiry</span></div>
+        </div>
+        <div class="coupon-right">
+          <div class="code-box" onclick="copyCode('HAHOT80',this)">HAHOT80</div>
+          <button class="btn-get" onclick="copyCode('HAHOT80',this)">Copy Code</button>
+        </div>
+      </div>
+
+      <!-- Inmotion -->
+      <div class="coupon-card reveal" data-cat="hosting" data-store="inmotion" data-search="inmotion hosting sitewide techbusy">
+        <div class="coupon-left"><div class="coupon-discount">$50</div><div style="font-size:0.6rem;color:var(--muted);font-family:'JetBrains Mono',monospace;">OFF SITEWIDE</div><div class="coupon-store-name">Inmotion</div></div>
+        <div class="coupon-middle">
+          <span class="coupon-badge badge-code">Promo Code</span>
+          <div class="coupon-title">$50 Off Inmotion Sitewide</div>
+          <div class="coupon-desc">Get Up to $50 Off with Inmotion Hosting promotional codes and coupons — top deal on all plans.</div>
+          <div class="coupon-meta"><span class="coupon-used">112 used</span><span class="coupon-expiry">No Expiry</span></div>
+        </div>
+        <div class="coupon-right">
+          <div class="code-box" onclick="copyCode('TECHBUSY',this)">TECHBUSY</div>
+          <button class="btn-get" onclick="copyCode('TECHBUSY',this)">Copy Code</button>
+        </div>
+      </div>
+
+      <!-- Temu -->
+      <div class="coupon-card reveal" data-cat="ecommerce" data-store="temu" data-search="temu summer sale 80 off storewide">
+        <div class="coupon-left"><div class="coupon-discount">80%</div><div style="font-size:0.6rem;color:var(--muted);font-family:'JetBrains Mono',monospace;">SUMMER SALE</div><div class="coupon-store-name">Temu</div></div>
+        <div class="coupon-middle">
+          <span class="coupon-badge badge-deal">No Code Needed</span>
+          <div class="coupon-title">Summer Sale: Up to 80% Off Storewide</div>
+          <div class="coupon-desc">Temu's hottest summer blowout — unbeatable markdowns up to 80% across thousands of products. From home decor to beauty tools.</div>
+          <div class="coupon-meta"><span class="coupon-used">🔥 130 used</span><span class="coupon-expiry">No Expiry</span></div>
+        </div>
+        <div class="coupon-right">
+          <div class="no-code-box">No code needed</div>
+          <button class="btn-get btn-deal" onclick="showToast('Deal activated! Go to Temu.')">Get Deal</button>
+        </div>
+      </div>
+
+      <!-- Natural Cycles -->
+      <div class="coupon-card reveal" data-cat="health" data-store="natural cycles" data-search="natural cycles gazebo thermometer annual plan">
+        <div class="coupon-left"><div class="coupon-discount">FREE</div><div style="font-size:0.6rem;color:var(--muted);font-family:'JetBrains Mono',monospace;">THERMOMETER</div><div class="coupon-store-name">Natural Cycles</div></div>
+        <div class="coupon-middle">
+          <span class="coupon-badge badge-code">Promo Code</span>
+          <div class="coupon-title">Save on Annual Plan with Free Thermometer</div>
+          <div class="coupon-desc">Start your natural birth control journey with Natural Cycles' annual plan and get a free thermometer included. Exclusive offer!</div>
+          <div class="coupon-meta"><span class="coupon-used">109 used</span><span class="coupon-expiry">No Expiry</span></div>
+        </div>
+        <div class="coupon-right">
+          <div class="code-box" onclick="copyCode('GAZEBO',this)">GAZEBO</div>
+          <button class="btn-get" onclick="copyCode('GAZEBO',this)">Copy Code</button>
+        </div>
+      </div>
+
+      <!-- LearnDash -->
+      <div class="coupon-card reveal" data-cat="education" data-store="learndash" data-search="learndash plugin ankyou30 lms wordpress">
+        <div class="coupon-left"><div class="coupon-discount">30%</div><div style="font-size:0.6rem;color:var(--muted);font-family:'JetBrains Mono',monospace;">OFF PLUGIN</div><div class="coupon-store-name">LearnDash</div></div>
+        <div class="coupon-middle">
+          <span class="coupon-badge badge-code">Promo Code</span>
+          <div class="coupon-title">LearnDash Plugin – 1 Site (Annually) 30% Off</div>
+          <div class="coupon-desc">Get 30% off your first LearnDash purchase. Best WordPress LMS plugin for creating online courses.</div>
+          <div class="coupon-meta"><span class="coupon-used">132 used</span><span class="coupon-expiry">No Expiry</span></div>
+        </div>
+        <div class="coupon-right">
+          <div class="code-box" onclick="copyCode('ANKYOU30',this)">ANKYOU30</div>
+          <button class="btn-get" onclick="copyCode('ANKYOU30',this)">Copy Code</button>
+        </div>
+      </div>
+
+      <!-- Domestika -->
+      <div class="coupon-card reveal" data-cat="education" data-store="domestika" data-search="domestika architecture courses kt10 97 off">
+        <div class="coupon-left"><div class="coupon-discount">97%</div><div style="font-size:0.6rem;color:var(--muted);font-family:'JetBrains Mono',monospace;">+EXTRA 10%</div><div class="coupon-store-name">Domestika</div></div>
+        <div class="coupon-middle">
+          <span class="coupon-badge badge-code">Promo Code</span>
+          <div class="coupon-title">Architecture & Spaces: Up to 97% Off + Extra 10%</div>
+          <div class="coupon-desc">Massive discounts on Architecture & Spaces courses — use the code for extra savings at checkout.</div>
+          <div class="coupon-meta"><span class="coupon-used">🔥 538 used</span><span class="coupon-expiry">No Expiry</span></div>
+        </div>
+        <div class="coupon-right">
+          <div class="code-box" onclick="copyCode('KT10',this)">KT10</div>
+          <button class="btn-get" onclick="copyCode('KT10',this)">Copy Code</button>
+        </div>
+      </div>
+
+      <!-- WFH Fashion -->
+      <div class="coupon-card reveal" data-cat="fashion" data-store="myntra" data-search="work from home casual wear 80 off fashion">
+        <div class="coupon-left"><div class="coupon-discount">80%</div><div style="font-size:0.6rem;color:var(--muted);font-family:'JetBrains Mono',monospace;">WFH WEAR</div><div class="coupon-store-name">Myntra</div></div>
+        <div class="coupon-middle">
+          <span class="coupon-badge badge-deal">No Code Needed</span>
+          <div class="coupon-title">Up to 80% Off Work-From-Home Casual Wear</div>
+          <div class="coupon-desc">Comfortable, everyday WFH outfits at big discounts — shop casual essentials while offers last.</div>
+          <div class="coupon-meta"><span class="coupon-used">360 used</span><span class="coupon-expiry">No Expiry</span></div>
+        </div>
+        <div class="coupon-right">
+          <div class="no-code-box">No code needed</div>
+          <button class="btn-get btn-deal" onclick="showToast('Deal activated! Go to Myntra.')">Get Deal</button>
+        </div>
+      </div>
+
+      <!-- SiteGround -->
+      <div class="coupon-card reveal" data-cat="hosting" data-store="siteground" data-search="siteground hosting discount">
+        <div class="coupon-left"><div class="coupon-discount">73%</div><div style="font-size:0.6rem;color:var(--muted);font-family:'JetBrains Mono',monospace;">OFF HOSTING</div><div class="coupon-store-name">SiteGround</div></div>
+        <div class="coupon-middle">
+          <span class="coupon-badge badge-code">Promo Code</span>
+          <div class="coupon-title">SiteGround — Up to 73% Off Web Hosting Plans</div>
+          <div class="coupon-desc">Premium cloud hosting with award-winning support. Get massive first-year discounts on all plans.</div>
+          <div class="coupon-meta"><span class="coupon-used">201 used</span><span class="coupon-expiry">No Expiry</span></div>
+        </div>
+        <div class="coupon-right">
+          <div class="code-box" onclick="copyCode('SGHOST73',this)">SGHOST73</div>
+          <button class="btn-get" onclick="copyCode('SGHOST73',this)">Copy Code</button>
+        </div>
+      </div>
+
+      <!-- Fiverr -->
+      <div class="coupon-card reveal" data-cat="software" data-store="fiverr" data-search="fiverr freelance services discount">
+        <div class="coupon-left"><div class="coupon-discount">10%</div><div style="font-size:0.6rem;color:var(--muted);font-family:'JetBrains Mono',monospace;">FIRST ORDER</div><div class="coupon-store-name">Fiverr</div></div>
+        <div class="coupon-middle">
+          <span class="coupon-badge badge-code">Promo Code</span>
+          <div class="coupon-title">10% Off Your First Fiverr Order</div>
+          <div class="coupon-desc">Save on freelance services from top-rated professionals. Design, dev, writing, video and more.</div>
+          <div class="coupon-meta"><span class="coupon-used">445 used</span><span class="coupon-expiry">No Expiry</span></div>
+        </div>
+        <div class="coupon-right">
+          <div class="code-box" onclick="copyCode('FIVERR10',this)">FIVERR10</div>
+          <button class="btn-get" onclick="copyCode('FIVERR10',this)">Copy Code</button>
+        </div>
+      </div>
+
+      <!-- Viator -->
+      <div class="coupon-card reveal" data-cat="travel" data-store="viator" data-search="viator travel tours experiences">
+        <div class="coupon-left"><div class="coupon-discount">15%</div><div style="font-size:0.6rem;color:var(--muted);font-family:'JetBrains Mono',monospace;">OFF TOURS</div><div class="coupon-store-name">Viator</div></div>
+        <div class="coupon-middle">
+          <span class="coupon-badge badge-code">Promo Code</span>
+          <div class="coupon-title">15% Off Tours, Activities & Experiences on Viator</div>
+          <div class="coupon-desc">Discover and book experiences around the world. City tours, day trips, sightseeing and more at discounted rates.</div>
+          <div class="coupon-meta"><span class="coupon-used">178 used</span><span class="coupon-expiry">No Expiry</span></div>
+        </div>
+        <div class="coupon-right">
+          <div class="code-box" onclick="copyCode('VIATOR15',this)">VIATOR15</div>
+          <button class="btn-get" onclick="copyCode('VIATOR15',this)">Copy Code</button>
+        </div>
+      </div>
+
+      <!-- Booking.com -->
+      <div class="coupon-card reveal" data-cat="travel" data-store="booking.com" data-search="booking.com hotel travel discount">
+        <div class="coupon-left"><div class="coupon-discount">20%</div><div style="font-size:0.6rem;color:var(--muted);font-family:'JetBrains Mono',monospace;">OFF HOTELS</div><div class="coupon-store-name">Booking.com</div></div>
+        <div class="coupon-middle">
+          <span class="coupon-badge badge-deal">No Code Needed</span>
+          <div class="coupon-title">Genius Members: Up to 20% Off Hotels Worldwide</div>
+          <div class="coupon-desc">Join Booking.com Genius loyalty program for exclusive discounts at millions of hotels, apartments and more.</div>
+          <div class="coupon-meta"><span class="coupon-used">312 used</span><span class="coupon-expiry">No Expiry</span></div>
+        </div>
+        <div class="coupon-right">
+          <div class="no-code-box">No code needed</div>
+          <button class="btn-get btn-deal" onclick="showToast('Deal activated! Go to Booking.com.')">Get Deal</button>
+        </div>
+      </div>
+
+      <!-- Lenovo -->
+      <div class="coupon-card reveal" data-cat="electronics" data-store="lenovo" data-search="lenovo laptop electronics discount">
+        <div class="coupon-left"><div class="coupon-discount">35%</div><div style="font-size:0.6rem;color:var(--muted);font-family:'JetBrains Mono',monospace;">OFF LAPTOPS</div><div class="coupon-store-name">Lenovo</div></div>
+        <div class="coupon-middle">
+          <span class="coupon-badge badge-code">Promo Code</span>
+          <div class="coupon-title">35% Off Select ThinkPad & IdeaPad Laptops</div>
+          <div class="coupon-desc">Save big on Lenovo's top-rated laptops. Free shipping on all orders over ₹5000.</div>
+          <div class="coupon-meta"><span class="coupon-used">267 used</span><span class="coupon-expiry">No Expiry</span></div>
+        </div>
+        <div class="coupon-right">
+          <div class="code-box" onclick="copyCode('LENOVOSAVE',this)">LENOVOSAVE</div>
+          <button class="btn-get" onclick="copyCode('LENOVOSAVE',this)">Copy Code</button>
+        </div>
+      </div>
+
+    </div><!-- /coupons-list -->
+  </div><!-- /deals-area -->
+</div><!-- /main-wrap -->
+
+<!-- STORES GRID -->
+<section class="stores-section" id="stores">
+  <div class="section-head">
+    <h2>Popular Stores</h2>
+    <a href="#">View All 500+ Stores →</a>
+  </div>
+  <div class="stores-grid">
+    <a href="#" class="store-card"><div class="store-icon">AJ</div><div class="store-card-name">Ajio</div><div class="store-card-count">12 coupons</div></a>
+    <a href="#" class="store-card"><div class="store-icon">BM</div><div class="store-card-name">BoohooMAN</div><div class="store-card-count">8 coupons</div></a>
+    <a href="#" class="store-card"><div class="store-icon">BK</div><div class="store-card-name">Booking.com</div><div class="store-card-count">15 coupons</div></a>
+    <a href="#" class="store-card"><div class="store-icon">DH</div><div class="store-card-name">DHgate</div><div class="store-card-count">22 coupons</div></a>
+    <a href="#" class="store-card"><div class="store-icon">DM</div><div class="store-card-name">Domestika</div><div class="store-card-count">18 coupons</div></a>
+    <a href="#" class="store-card"><div class="store-icon">FC</div><div class="store-card-name">FastComet</div><div class="store-card-count">9 coupons</div></a>
+    <a href="#" class="store-card"><div class="store-icon">FV</div><div class="store-card-name">Fiverr</div><div class="store-card-count">11 coupons</div></a>
+    <a href="#" class="store-card"><div class="store-icon">GG</div><div class="store-card-name">GetYourGuide</div><div class="store-card-count">14 coupons</div></a>
+    <a href="#" class="store-card"><div class="store-icon">HI</div><div class="store-card-name">Hostinger</div><div class="store-card-count">20 coupons</div></a>
+    <a href="#" class="store-card"><div class="store-icon">HG</div><div class="store-card-name">HostGator</div><div class="store-card-count">16 coupons</div></a>
+    <a href="#" class="store-card"><div class="store-icon">IM</div><div class="store-card-name">Inmotion</div><div class="store-card-count">7 coupons</div></a>
+    <a href="#" class="store-card"><div class="store-icon">LN</div><div class="store-card-name">Lenovo</div><div class="store-card-count">10 coupons</div></a>
+    <a href="#" class="store-card"><div class="store-icon">MY</div><div class="store-card-name">Myntra</div><div class="store-card-count">31 coupons</div></a>
+    <a href="#" class="store-card"><div class="store-icon">NC</div><div class="store-card-name">Natural Cycles</div><div class="store-card-count">5 coupons</div></a>
+    <a href="#" class="store-card"><div class="store-icon">SG</div><div class="store-card-name">SiteGround</div><div class="store-card-count">13 coupons</div></a>
+    <a href="#" class="store-card"><div class="store-icon">TM</div><div class="store-card-name">Temu</div><div class="store-card-count">25 coupons</div></a>
+    <a href="#" class="store-card"><div class="store-icon">VI</div><div class="store-card-name">Viator</div><div class="store-card-count">19 coupons</div></a>
+    <a href="#" class="store-card"><div class="store-icon">ZN</div><div class="store-card-name">Zenni Optical</div><div class="store-card-count">8 coupons</div></a>
+  </div>
+</section>
+
+<!-- NEWSLETTER -->
+<section class="newsletter" id="newsletter">
+  <div class="newsletter-left">
+    <div class="newsletter-tag">↓ Deal Alerts</div>
+    <h2>Get the Best Deals<br>Before They Expire</h2>
+    <p>Subscribe and we'll send you the hottest coupons from your favourite stores the moment they go live. No spam — ever.</p>
+  </div>
+  <div class="newsletter-form">
+    <input type="email" placeholder="your@email.com" id="emailInput">
+    <button onclick="subscribeEmail()">Get Alerts</button>
+  </div>
+</section>
+
+<!-- FOOTER -->
+<footer>
+  <a href="#" class="footer-logo">get<span>couponic</span></a>
+  <div class="footer-links">
+    <a href="#">Privacy Policy</a>
+    <a href="#">Terms of Use</a>
+    <a href="#">Submit a Deal</a>
+    <a href="#">All Stores</a>
+    <a href="#">Contact</a>
+  </div>
+  <div class="footer-copy">© 2026 GetCouponic. All rights reserved.</div>
+</footer>
+
+<div class="toast" id="toast">✓ Code copied!</div>
+
+<script>
+  // Copy coupon code
+  function copyCode(code, el) {
+    navigator.clipboard.writeText(code).then(() => {
+      const original = el.textContent;
+      el.textContent = '✓ Copied!';
+      el.style.color = 'var(--accent2)';
+      setTimeout(() => { el.textContent = original; el.style.color = ''; }, 2000);
+      showToast('Code "' + code + '" copied to clipboard!');
+    });
+  }
+
+  // Toast
+  function showToast(msg) {
+    const t = document.getElementById('toast');
+    t.textContent = '✓ ' + msg;
+    t.classList.add('show');
+    setTimeout(() => t.classList.remove('show'), 2800);
+  }
+
+  // Category filter
+  function filterCat(btn, cat) {
+    document.querySelectorAll('.cat-btn').forEach(b => b.classList.remove('active'));
+    btn.classList.add('active');
+    const cards = document.querySelectorAll('.coupon-card');
+    let visible = 0;
+    cards.forEach(c => {
+      const match = cat === 'all' || c.dataset.cat === cat;
+      c.style.display = match ? '' : 'none';
+      if (match) visible++;
+    });
+    document.getElementById('dealsCount').textContent = 'Showing ' + visible + ' coupon' + (visible !== 1 ? 's' : '');
+  }
+
+  // Search filter
+  function filterCards(q) {
+    q = q.toLowerCase().trim();
+    const cards = document.querySelectorAll('.coupon-card');
+    let visible = 0;
+    cards.forEach(c => {
+      const haystack = (c.dataset.search || '') + ' ' + (c.dataset.store || '');
+      const match = !q || haystack.includes(q);
+      c.style.display = match ? '' : 'none';
+      if (match) visible++;
+    });
+    document.getElementById('dealsCount').textContent = q ? 'Found ' + visible + ' result' + (visible !== 1 ? 's' : '') : 'Showing all coupons';
+    // Sync search bars
+    document.querySelectorAll('input[type=text]').forEach(i => { if (i.value !== q) i.value = q; });
+  }
+
+  // Newsletter
+  function subscribeEmail() {
+    const v = document.getElementById('emailInput').value;
+    if (!v || !v.includes('@')) { showToast('Please enter a valid email address'); return; }
+    showToast('You\'re in! Deal alerts coming your way 🎉');
+    document.getElementById('emailInput').value = '';
+  }
+
+  // Scroll reveal
+  const observer = new IntersectionObserver(entries => {
+    entries.forEach((e, i) => {
+      if (e.isIntersecting) {
+        setTimeout(() => e.target.classList.add('visible'), i * 60);
+        observer.unobserve(e.target);
+      }
+    });
+  }, { threshold: 0.08 });
+  document.querySelectorAll('.reveal').forEach(el => observer.observe(el));
+</script>
+</body>
+</html>
